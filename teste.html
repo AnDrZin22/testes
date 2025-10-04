@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vaca</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+      transition: background 0.6s, color 0.6s;
+    }
+    h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      transition: color 0.6s;
+    }
+    button {
+      position: relative;
+      z-index: 2;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #fff;
+      color: #111;
+      transition: background 0.3s, color 0.3s;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    .falling {
+      position: absolute;
+      top: -50px;
+      font-size: 32px;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Sua Vaca 🐄</h1>
+  <button id="toggle">Clique Aqui</button>
+
+  <script>
+    let mode = "dedos"; // começa com dedos
+    const title = document.getElementById("title");
+    const toggle = document.getElementById("toggle");
+
+    function createFalling(symbol) {
+      const el = document.createElement('div');
+      el.className = 'falling';
+      el.textContent = symbol;
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+
+    // chuva inicial
+    setInterval(() => {
+      if (mode === "dedos") {
+        createFalling('🖕');
+      } else {
+        createFalling('❤️');
+      }
+    }, 300);
+
+    toggle.addEventListener("click", () => {
+      if (mode === "dedos") {
+        // muda para corações
+        mode = "coracoes";
+        title.textContent = "Eu Amo a Outra ❤️";
+        document.body.style.background = "#ffdee9";
+        document.body.style.color = "#b00020";
+      } else {
+        // volta para dedos
+        mode = "dedos";
+        title.textContent = "Sua Vaca 🐄";
+        document.body.style.background = "#111";
+        document.body.style.color = "#fff";
+      }
+    });
+  </script>
+</body>
+</html>
